@@ -6,6 +6,7 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import Toolbar from "./Toolbar";
+import ShareDialog from "./ShareDialog";
 
 type Props = {
   id: string;
@@ -43,6 +44,7 @@ export default function DocumentEditor({
   const [title, setTitle] = useState(initialTitle);
   const [status, setStatus] = useState<SaveState>("saved");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [shareOpen, setShareOpen] = useState(false);
 
   const savedTitle = useRef(initialTitle);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -173,12 +175,24 @@ export default function DocumentEditor({
         >
           {canEdit ? statusText : "View only"}
         </span>
+        {role === "owner" && (
+          <button
+            className="btn btn-primary"
+            onClick={() => setShareOpen(true)}
+          >
+            Share
+          </button>
+        )}
       </div>
 
       {canEdit && editor && <Toolbar editor={editor} />}
       <div className={`editor-surface ${canEdit ? "" : "readonly"}`}>
         <EditorContent editor={editor} />
       </div>
+
+      {shareOpen && (
+        <ShareDialog docId={id} onClose={() => setShareOpen(false)} />
+      )}
     </main>
   );
 }

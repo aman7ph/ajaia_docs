@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/session";
 import { listDocumentsForUser } from "@/lib/documents";
 import LogoutButton from "@/components/LogoutButton";
 import NewDocumentButton from "@/components/NewDocumentButton";
+import UploadButton from "@/components/UploadButton";
 import DocumentList from "@/components/DocumentList";
 
 export const dynamic = "force-dynamic";
@@ -35,12 +36,22 @@ export default async function HomePage() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: 12,
+            flexWrap: "wrap",
+            gap: 12,
+            marginBottom: 6,
           }}
         >
           <h2 style={{ margin: 0, fontSize: 18 }}>My documents</h2>
-          <NewDocumentButton />
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <UploadButton />
+            <NewDocumentButton />
+          </div>
         </div>
+        <p style={{ margin: "0 0 12px", fontSize: 12, color: "var(--muted)" }}>
+          Upload supports .txt, .md and .docx files up to 2 MB. Each file
+          becomes a new editable document. Images inside .docx files are not
+          imported.
+        </p>
         <DocumentList
           items={owned}
           emptyMessage="You haven't created any documents yet."

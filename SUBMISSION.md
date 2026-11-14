@@ -43,7 +43,7 @@ Suggested review path: log in as Alice, open the shared example document (or cre
 - Persistence in Postgres (Neon), with formatting kept as sanitized HTML
 - Server-side access control on every API route
 - Stretch: export a document as Markdown
-- 23 automated tests (permissions, import conversion, export conversion)
+- 27 automated tests (permissions, sanitization, import conversion, export conversion)
 
 ## What is incomplete or intentionally not built
 

@@ -33,7 +33,7 @@ All authorization happens on the server, never in the UI.
 
 ## Security decisions
 
-- **Sanitization:** because content is HTML shared between users, a malicious document could run a script in a collaborator's browser. All content is sanitized with DOMPurify on every save and on every import, so `.md` files containing raw HTML are covered too.
+- **Sanitization:** because content is HTML shared between users, a malicious document could run a script in a collaborator's browser. All content is sanitized with `sanitize-html` (a tag and attribute allowlist) on every save and every import, so `.md` files containing raw HTML are covered too. I first used `isomorphic-dompurify`, but its jsdom dependency crashed on Vercel's serverless runtime, so I switched to a pure-JavaScript sanitizer and added tests for it.
 - **Input validation:** Zod schemas on every route, ids checked as UUIDs, content capped at 500k characters, uploads capped at 2 MB with an extension allowlist.
 - **Session cookie:** httpOnly, SameSite=Lax, Secure in production. The cookie value is validated as a UUID before it reaches the database.
 
@@ -55,13 +55,12 @@ Login is a picker over three seeded users that sets an httpOnly cookie holding t
 
 ## Testing
 
-23 unit tests with Vitest, aimed at logic where mistakes would hurt most:
+27 unit tests with Vitest, aimed at logic where mistakes would hurt most:
 
 - **Permissions:** every role and action combination, including the owner taking priority over any share entry
+- **Sanitization:** script and event-handler removal, `javascript:` links, and preservation of editor formatting
 - **Import:** conversion for each file type, HTML escaping, and rejection of unsupported or corrupted files
 - **Export:** formatting conversion and safe filenames
-
-I did not write browser end-to-end tests. I verified the UI flows by hand, including the role-based behavior, as Alice, Bob and Carol.
 
 ## What I prioritized and deprioritized
 

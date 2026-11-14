@@ -16,7 +16,7 @@ A lightweight collaborative document editor inspired by Google Docs, built for t
 
 ## Tech stack
 
-Next.js 14 (App Router) and TypeScript, TipTap editor, Postgres (Neon) with Drizzle ORM, Zod validation, DOMPurify sanitization, mammoth and marked for import, turndown for export, Vitest for tests.
+Next.js 14 (App Router) and TypeScript, TipTap editor, Postgres (Neon) with Drizzle ORM, Zod validation, sanitize-html for content sanitization, mammoth and marked for import, turndown for export, Vitest for tests.
 
 ## Run locally
 
@@ -69,9 +69,10 @@ Authentication is mocked on purpose: the login page lists seeded users and one c
 npm test
 ```
 
-23 tests cover:
+27 tests cover:
 
 - **Access control:** owner, editor, viewer and no-access roles, and which actions each can perform
+- **Sanitization:** script removal, event-handler stripping, `javascript:` links, and preservation of editor formatting
 - **File import:** text, Markdown and `.docx` conversion, escaping, and rejection of unsupported or corrupted files
 - **Markdown export:** formatting conversion and safe filenames
 

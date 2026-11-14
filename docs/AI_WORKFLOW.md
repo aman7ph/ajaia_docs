@@ -24,16 +24,17 @@ I did not ask for the whole app in one shot. I split it into small steps (founda
 - **Route folder bug:** `/documents/[id]` returned 404 after creating a document. I traced it to my `page.tsx` sitting in the wrong folder, and fixed it myself.
 - **Process:** I asked the AI to keep answers in chat, work one step at a time, and not generate files.
 - CONFIRM / ADD: anything you rejected or rewrote that I don't know about, such as styling, wording or code you changed.
+- **Production-only crash:** after deploying, saving documents returned a 500. The Vercel logs showed that `isomorphic-dompurify` (via jsdom) failed with an ES-module error on the serverless runtime, even though it worked locally. The AI had flagged this as a deployment risk beforehand, so I tested the live site early. I replaced it with `sanitize-html`, added four sanitizer tests (the sanitizer had no test coverage, which is how it slipped through), redeployed, and re-ran the script-injection check against the live URL.
 
 ## How I verified correctness
 
 - **Static checks:** `tsc --noEmit` after every step, plus a production `next build` before deploying.
-- **Automated tests:** 23 Vitest tests covering permissions, import conversion and export conversion.
+- **Automated tests:** 27 Vitest tests covering permissions, sanitization, import conversion and export conversion.
 - **API checks by hand:** I called the endpoints from the browser console and confirmed the exact status codes: 201 on create, 400 on invalid input, 404 for users with no access, 403 for a non-owner managing shares.
 - **Security check:** I saved `<script>alert(1)</script>` in a document and confirmed it was stripped on read.
 - **Role testing in the browser:** I logged in as Alice, Bob and Carol to confirm owner, editor and view-only behavior.
 - **Round-trip and format checks:** exported Markdown and re-imported it, and tested real `.docx` and `.md` uploads.
-- **Deployment check:** I tested the live URL in an incognito window against the same flows.
+- **Deployment check:** I tested the live URL in an incognito window against the same flows. This caught a production-only crash that local testing missed, which I fixed and re-verified (see above).
 
 ## What I would not trust AI output on without checking
 

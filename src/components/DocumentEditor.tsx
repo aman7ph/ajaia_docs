@@ -175,6 +175,13 @@ export default function DocumentEditor({
         >
           {canEdit ? statusText : "View only"}
         </span>
+        <a
+          href={`/api/documents/${id}/export`}
+          className="btn"
+          style={{ textDecoration: "none" }}
+        >
+          Export .md
+        </a>
         {role === "owner" && (
           <button
             className="btn btn-primary"

@@ -1,14 +1,14 @@
 # Submission
 
 **Candidate:** Amanuel Dereje
-
 **Project:** Ajaia Docs, a lightweight collaborative document editor
 
 ## Links
 
 - **Live product:** https://ajaia-docs-beryl-six.vercel.app/
-- **Walkthrough video:** TODO-paste-loom-or-youtube-url (also in `walkthrough-video.txt`)
-- **Source repository:** https://github.com/aman7ph/ajaia_docs (TODO: confirm the repo is public, or that reviewers have access)
+- **Walkthrough video (Loom):** https://www.loom.com/share/9d7894d72bb747869931e83869237988
+- **Submission folder (Google Drive):** https://drive.google.com/drive/folders/1L_FkYAwZ9OZ1eX0F8esL8Osa-x0PRzYR?usp=sharing
+- **Source repository:** https://github.com/aman7ph/ajaia_docs
 
 ## Test accounts
 
@@ -20,19 +20,20 @@ Authentication is mocked on purpose. The login page lists the seeded users and o
 | Bob Editor   | bob@ajaia.test   | Editing a shared document               |
 | Carol Viewer | carol@ajaia.test | Read-only access to a shared document   |
 
-Suggested review path: log in as Alice, open the shared example document (or create one and use Share), then log in as Bob and Carol to compare permissions.
+Suggested review path: log in as Alice, create a document and use **Share** to give Bob Editor and Carol Viewer access. Then log in as Bob and as Carol to compare what each can do. Using a second browser window or incognito makes switching users easier.
 
 ## What is included in this folder
 
 | Item                    | Description                                                   |
 | ----------------------- | ------------------------------------------------------------- |
-| `ajaia_docs/`           | Full source code (without `node_modules`, `.next` or `.env`)  |
+| `ajaia_docs_source.zip` | Full source code (without `node_modules`, `.next` or `.env`)  |
 | `README.md`             | Local setup, scripts, test accounts and a guided sharing flow |
-| `docs/ARCHITECTURE.md`  | Architecture note: what was prioritized and why               |
-| `docs/AI_WORKFLOW.md`   | AI workflow note                                              |
+| `ARCHITECTURE.md`       | Architecture note: what was prioritized and why               |
+| `AI_WORKFLOW.md`        | AI workflow note                                              |
 | `SUBMISSION.md`         | This file                                                     |
 | `walkthrough-video.txt` | The walkthrough video URL                                     |
-| `screenshots/`          | TODO: delete this row if you don't include screenshots        |
+
+The same README, architecture note, AI workflow note and this file are also inside the zip, under the project root and `docs/`.
 
 ## What works end to end
 

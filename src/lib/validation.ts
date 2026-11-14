@@ -14,3 +14,12 @@ export const updateDocumentSchema = z
   .refine((d) => d.title !== undefined || d.content !== undefined, {
     message: "Nothing to update",
   });
+
+export const shareSchema = z.object({
+  email: z.string().trim().toLowerCase().email("Enter a valid email"),
+  role: z.enum(["viewer", "editor"]),
+});
+
+export const unshareSchema = z.object({
+  userId: z.string().uuid(),
+});
